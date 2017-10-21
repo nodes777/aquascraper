@@ -6,7 +6,7 @@ startScrape();
 function startScrape(){
 	exec('casperjs scrape.js',
 		    {
-		    	env: { 'PATH': './node\\_modules/.bin/',
+		    	env: { '$PATH': './node\\_modules/.bin/',
 		    		'deets' : process.env.deets,
 		    	 },
 			},
