@@ -1,5 +1,5 @@
 {
-  "name": "aqualive",
+  "name": "aquascraper",
   "version": "1.0.0",
   "description": "",
   "main": "nodescrape.js",
@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "casperjs": "^1.1.4",
-    "phantomjs": "^2.1.7"
+    "casperjs": "1.1.4",
+    "phantomjs": "2.1.7"
   }
 }
