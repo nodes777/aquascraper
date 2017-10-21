@@ -6,7 +6,7 @@ startScrape();
 function startScrape(){
 	exec('casperjs scrape.js',
 		    {
-		    	env: { //'PATH': 'C:/phantomjs-2.1.1-windows/bin:./node\\_modules/.bin/:/app/.heroku/node/bin',
+		    	env: { 'PATH': './node\\_modules/.bin/:/app/.heroku/node/bin',
 		    		'deets' : process.env.deets,
 		    	 },
 			},
