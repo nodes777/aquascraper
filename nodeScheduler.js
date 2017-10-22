@@ -6,7 +6,7 @@ startScrape();
 
 function startScrape(){
 	exec('casperjs scrape.js', //process.env
-		    {
+		    { //Providing a env overwrites all other envs including PATH
 		    	/*env: { 'PATH': './node\\_modules/.bin/',
 		    		'deets' : process.env.deets,
 		    	 },*/
