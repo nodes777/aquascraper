@@ -1,1 +1,1 @@
-worker: node nodescheduler.js
+worker: node nodescrapestarter.js
