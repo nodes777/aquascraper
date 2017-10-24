@@ -14,6 +14,8 @@ function startScrape(){
 		    function(err, stdout, stderr) {
 		        if (err) {
 		            console.log('ERROR. err was:' + err);
+		            console.log('\n' + err.message.toString());
+		            console.log('\n' + err.code);
 		            console.log('ERROR. stderr was:' + stderr);
 		        } else {
 		            console.log('success stdout was:' + stdout);
