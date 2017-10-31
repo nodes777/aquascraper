@@ -1,8 +1,4 @@
 var exec = require('child_process').exec;
-console.log("Starting setInterval...");
-setInterval(startScrape, 86400000);
-console.log("Starting scrape...");
-startScrape();
 
 function startScrape(){
 	exec('casperjs scrape.js', //process.env
@@ -24,3 +20,13 @@ function startScrape(){
 		    }
 		);
 }
+
+
+setTimeout(function(){
+	console.log("Starting setInterval...");
+	// every 24 hours
+	setInterval(startScrape, 86400000);
+	console.log("Starting scrape...");
+	startScrape();
+	// in roughly 4.86 hours it will be midnight, start of new day.
+},17500000);
