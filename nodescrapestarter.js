@@ -23,6 +23,7 @@ function startScrape(){
 
 	setInterval(startScrape, 86400000);
 	console.log("Starting scrape...");
+	startScrape();
 
 	/*
 setTimeout(function(){
