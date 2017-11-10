@@ -21,7 +21,10 @@ function startScrape(){
 		);
 }
 
+	setInterval(startScrape, 86400000);
+	console.log("Starting scrape...");
 
+	/*
 setTimeout(function(){
 	console.log("Starting setInterval...");
 	// every 24 hours
@@ -30,3 +33,5 @@ setTimeout(function(){
 	startScrape();
 	// in roughly 4.86 hours it will be midnight, start of new day.
 },17500000);
+
+*/
