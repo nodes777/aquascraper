@@ -21,11 +21,16 @@ function startScrape(){
 		);
 }
 
-	setInterval(startScrape, 86400000);
-	console.log("Starting scrape...");
-	startScrape();
 
-	/*
+console.log("Starting scrape...");
+startScrape();
+setInterval(forceCrash, 86400000);
+
+function forceCrash(){
+	console.log("Forcing a crash to restart server");
+	process.exit(1);
+}
+/*
 setTimeout(function(){
 	console.log("Starting setInterval...");
 	// every 24 hours
