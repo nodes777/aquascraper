@@ -61,7 +61,7 @@ var url = "http://www.aquabid.com/cgi-bin/auction/closed.cgi";
 /* Array to fill and send to Firebase */
 var allFish = {
   allAuctions: {},
-  sold : {}
+  //sold : {}
 };
 
 /* For capturing console.logs() within the pages
@@ -102,7 +102,7 @@ casper.waitForSelector('select[name="category"]').then(function(){
       /* Format the data string into JSON*/
       var formattedJSON = tableToJSON.format(tableData);
       /* Sort for only the sold items */
-      var soldJSON = sold.getSoldItems(formattedJSON);
+      //var soldJSON = sold.getSoldItems(formattedJSON);
 
       console.log("Finished: " + currentFish + ": "+(i+1)+"/"+(fishArray.length+1) );
 
@@ -110,7 +110,7 @@ casper.waitForSelector('select[name="category"]').then(function(){
       * Add the currentFish as a property to allFish
       * Its value is the soldJSON
       */
-      allFish.sold[currentFish] = soldJSON;
+      //allFish.sold[currentFish] = soldJSON;
       allFish.allAuctions[currentFish] = formattedJSON;
     });
   });
