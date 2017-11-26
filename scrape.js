@@ -104,13 +104,14 @@ casper.waitForSelector('select[name="category"]').then(function(){
       /* Sort for only the sold items */
       //var soldJSON = sold.getSoldItems(formattedJSON);
 
-      console.log("Finished: " + currentFish + ": "+(i+1)+"/"+(fishArray.length+1) );
+      console.log("Finished: " + currentFish + ": "+(i+1)+"/"+(fishArray.length) );
 
       /*
       * Add the currentFish as a property to allFish
       * Its value is the soldJSON
       */
       //allFish.sold[currentFish] = soldJSON;
+      console.log(JSON.stringify(formattedJSON));
       allFish.allAuctions[currentFish] = formattedJSON;
     });
   });
