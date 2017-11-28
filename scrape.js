@@ -8,6 +8,9 @@ var fishArray = JSON.parse( fs.read("./input/fishArray.js") );
 var tableToJSON = require('./utils/tableToJSON');
 var grab = require('./utils/grabTable');
 var sold = require('./utils/getSoldItems');
+var getAvg = require('./utils/getAvg');
+var getStdDev = require('./utils/getStdDev');
+var getSalesVolume = require('./utils/getSalesVolume');
 //var deets = require('./deets');
 var deets = system.env.deets;
 
@@ -61,6 +64,7 @@ var url = "http://www.aquabid.com/cgi-bin/auction/closed.cgi";
 /* Array to fill and send to Firebase */
 var allFish = {
   allAuctions: {},
+  stats: {}
   //sold : {}
 };
 
@@ -102,7 +106,14 @@ casper.waitForSelector('select[name="category"]').then(function(){
       /* Format the data string into JSON*/
       var formattedJSON = tableToJSON.format(tableData);
       /* Sort for only the sold items */
-      //var soldJSON = sold.getSoldItems(formattedJSON);
+      var soldJSON = sold.getSoldItems(formattedJSON);
+
+      var stats = {};
+
+      stats.avg = getAvg.getAvg(soldJSON);
+      stats.stdDev = getStdDev.getStdDev(soldJSON, stats.avg);
+      stats.salesVolume = getSalesVolume.getSalesVolume(soldJSON);
+      console.log(JSON.stringify(stats));
 
       console.log("Finished: " + currentFish + ": "+(i+1)+"/"+(fishArray.length) );
 
@@ -111,8 +122,9 @@ casper.waitForSelector('select[name="category"]').then(function(){
       * Its value is the soldJSON
       */
       //allFish.sold[currentFish] = soldJSON;
-      console.log(JSON.stringify(formattedJSON));
+      //console.log(JSON.stringify(formattedJSON));
       allFish.allAuctions[currentFish] = formattedJSON;
+      allFish.stats[currentFish] = stats;
     });
   });
 });
