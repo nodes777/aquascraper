@@ -12,7 +12,7 @@ var getAvg = require('./utils/getAvg');
 var getStdDev = require('./utils/getStdDev');
 var getSalesVolume = require('./utils/getSalesVolume');
 //var deets = require('./deets');
-var deets = system.env.deets;
+var deets = "8U20xkoK7TNgnRXFnnlM9PBi6bSarxgt9nYmgV26" ;
 
 /* Get a Date to send to the url for better Firebase organization*/
 var time = Date.now();
@@ -136,14 +136,20 @@ casper.then(function(){
         casper.thenOpen("https://aquascraper-data.firebaseio.com/"+firebaseMonthPath+"/"+dayScrapedUrl+".json?auth="+deets+"&debug=true",{
           method: "post",
           data: JSON.stringify(allFish),
-          headers: {
-            auth : "xxxxxx",
-            keepAlive : true
-          },
           contentType : 'application/json',
           dataType: 'json',
         },function(response){
-          casper.echo("POSTED TO Firebase");
+          casper.echo("POSTED Daily fish data to Firebase");
+          casper.echo(JSON.stringify(response));
+        });
+        // Add the newest days stats
+        casper.thenOpen("https://aquascraper-data.firebaseio.com/stats"+firebaseMonthPath+"-"+dayScrapedUrl+".json?auth="+deets+"&debug=true",{
+          method: "post",
+          data: JSON.stringify(allFish.stats),
+          contentType : 'application/json',
+          dataType: 'json',
+        },function(response){
+          casper.echo("POSTED Daily stats to Firebase");
           casper.echo(JSON.stringify(response));
         });
       });
