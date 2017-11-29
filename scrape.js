@@ -123,15 +123,18 @@ casper.waitForSelector('select[name="category"]').then(function(){
       */
       //allFish.sold[currentFish] = soldJSON;
       //console.log(JSON.stringify(formattedJSON));
+      var timestamp = Date.now()
       allFish.allAuctions[currentFish] = formattedJSON;
       allFish.stats[currentFish] = stats;
+      allFish.stats.timestamp = timestamp;
     });
   });
 });
 
-/* Make a POST request to Firebase */
+/* Talking to Firebase */
 casper.then(function(){
       console.log("Sending to Firebase...");
+        /* POST to Firebase */
         // Open the url for the database, include a new path for the date
         casper.thenOpen("https://aquascraper-data.firebaseio.com/"+firebaseMonthPath+"/"+dayScrapedUrl+".json?auth="+deets+"&debug=true",{
           method: "post",
@@ -142,9 +145,10 @@ casper.then(function(){
           casper.echo("POSTED Daily fish data to Firebase");
           casper.echo(JSON.stringify(response));
         });
+
         // Add the newest days stats
         casper.thenOpen("https://aquascraper-data.firebaseio.com/stats/"+firebaseMonthPath+"-"+dayScrapedUrl+".json?auth="+deets+"&debug=true",{
-          method: "post",
+          method: "put",
           data: JSON.stringify(allFish.stats),
           contentType : 'application/json',
           dataType: 'json',
@@ -152,19 +156,31 @@ casper.then(function(){
           casper.echo("POSTED Daily stats to Firebase");
           casper.echo(JSON.stringify(response));
         });
+
+/*
         // Check for number of stat days
-        casper.thenOpen("https://aquascraper-data.firebaseio.com/stats.json").then(function(){
+        casper.thenOpen('https://aquascraper-data.firebaseio.com/stats.json?orderBy="timestamp"&limitToLast=30').then(function(){
           casper.echo("GET stats from Firebase");
-          var body = casper.evaluate(function(){
-            return document.querySelector("pre").innerText;
-          })
-          var pre = body;
-          var parsed = JSON.parse(pre);
-          casper.echo(pre)
-          casper.echo(parsed)
-          casper.echo(parsed.length)
+          var thirtDayStatsJSON = JSON.parse(this.getPageContent());
+          var dayNames = Object.keys(thirtDayStatsJSON);
+          var numOfDays = dayNames.length;
+          casper.echo("Number of Days with stats: "+ numOfDays); 
+          console.log(JSON.stringify(thirtDayStatsJSON))
+
+
+          // If there's more than 30 days worth of stats, delete the last day.
+           if(numOfDays>30){
+              casper.thenOpen("https://aquascraper-data.firebaseio.com/stats/"+dayNames[0]+".json?auth="+deets+"&debug=true",{
+                method: "delete",
+                contentType : 'application/json',
+                dataType: 'json',
+              },function(response){
+                casper.echo("Deleted 31st day ago stat on Firebase");
+                casper.echo(JSON.stringify(response));
+              });
+           }
+*/
         });
-      });
 
 
 
