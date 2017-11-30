@@ -12,7 +12,7 @@ var getAvg = require('./utils/getAvg');
 var getStdDev = require('./utils/getStdDev');
 var getSalesVolume = require('./utils/getSalesVolume');
 //var deets = require('./deets');
-var deets = "8U20xkoK7TNgnRXFnnlM9PBi6bSarxgt9nYmgV26" ;
+var deets = system.env.deets;
 
 /* Get a Date to send to the url for better Firebase organization*/
 var time = Date.now();
