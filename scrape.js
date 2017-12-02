@@ -26,11 +26,11 @@ dayScraped.push(dayOfWeek);
 var dayScrapedUrl = dayScraped.join("-");
 
 var firebaseMonth = dateArray.slice(1,2);
-firebaseMonth += dateArray.slice(3,4);
+var firebaseMonthAndYear = firebaseMonth + dateArray.slice(3,4);
+var firebaseMonthDashYear = firebaseMonth +"-" +dateArray.slice(3,4);
+console.log(firebaseMonthDashYear)
+var firebaseMonthPath = firebaseMonthAndYear.toString();
 
-var firebaseMonthPath = firebaseMonth.toString();
-
-console.log(firebaseMonthPath);
 
 /* Create casper object*/
 var casper = require('casper').create({
@@ -147,7 +147,7 @@ casper.then(function(){
         });
 
         // Add the newest days stats
-        casper.thenOpen("https://aquascraper-data.firebaseio.com/stats/"+firebaseMonthPath+"-"+dayScrapedUrl+".json?auth="+deets+"&debug=true",{
+        casper.thenOpen("https://aquascraper-data.firebaseio.com/stats/"+firebaseMonthDashYear+"-"+dayScrapedUrl+".json?auth="+deets+"&debug=true",{
           method: "put",
           data: JSON.stringify(allFish.stats),
           contentType : 'application/json',
@@ -156,31 +156,7 @@ casper.then(function(){
           casper.echo("POSTED Daily stats to Firebase");
           casper.echo(JSON.stringify(response));
         });
-
-/*
-        // Check for number of stat days
-        casper.thenOpen('https://aquascraper-data.firebaseio.com/stats.json?orderBy="timestamp"&limitToLast=30').then(function(){
-          casper.echo("GET stats from Firebase");
-          var thirtDayStatsJSON = JSON.parse(this.getPageContent());
-          var dayNames = Object.keys(thirtDayStatsJSON);
-          var numOfDays = dayNames.length;
-          casper.echo("Number of Days with stats: "+ numOfDays); 
-          console.log(JSON.stringify(thirtDayStatsJSON))
-
-
-          // If there's more than 30 days worth of stats, delete the last day.
-           if(numOfDays>30){
-              casper.thenOpen("https://aquascraper-data.firebaseio.com/stats/"+dayNames[0]+".json?auth="+deets+"&debug=true",{
-                method: "delete",
-                contentType : 'application/json',
-                dataType: 'json',
-              },function(response){
-                casper.echo("Deleted 31st day ago stat on Firebase");
-                casper.echo(JSON.stringify(response));
-              });
-           }
-*/
-        });
+});
 
 
 
