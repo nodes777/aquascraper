@@ -24,7 +24,7 @@ function startScrape(){
 
 console.log("Starting scrape...");
 startScrape();
-setTimeout(forceCrash, 86400000);
+//setTimeout(forceCrash, 86400000);
 
 function forceCrash(){
 	console.log("Forcing a crash to restart server");
