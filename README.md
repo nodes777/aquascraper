@@ -18,6 +18,7 @@ In a terminal run
 Data is currently written to Firebase, code to write to disk is commented out.
 
 ### To Grab the Data from Firebase
+#### By a Single Day's raw data
 Make a JSONP request:
 
 ```
@@ -30,3 +31,29 @@ $.ajax({
 `monthAndYear` must be formatted like "Nov2017"
 `day` must be formatted like "01-Wed"
 The earliest available date is Oct2017, 15-Sun.
+
+Returns all closed auctions (sold and unsold) for that day as a JSON object.
+
+#### By Stats Only
+Follows [Firebase API rules](https://firebase.google.com/docs/database/rest/retrieve-data) for filtering.
+Make a JSONP request:
+
+```
+$.ajax({
+  url: 'https://aquascraper-data.firebaseio.com/stats.json?orderBy="timestamp"&limitToLast=30',
+  dataType: "jsonp",
+  jsonpCallback: "processJSON"
+});
+```
+
+Returns a JSON object of all fish type's market stats; average, standard deviation, and sales volume of each day within the url parameters. This example URL grabs the last 30 days.
+
+## Bugs
+
+* Currently the data being displayed for the closed auctions aquabid, after selecting "view 1 previous day", includes sales that have been sold before their close date. This allows a single sale to remain as a valid data point for multiple days. If serious data analysis is to be done, this must be sorted to only display the data on the day that the sale is made.
+
+## To Dos
+* Add links to fish closed auction pages
+
+### Note
+As of January 2nd 2018, [aquabid's robots.txt](http://www.aquabid.com/robots.txt) only prevents automated browsing on the "/cgi-bin/auction/vfb.cgi" pages. Presumably, this is to avoid automated bid making.
