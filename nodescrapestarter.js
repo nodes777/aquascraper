@@ -16,6 +16,7 @@ function startScrape(){
 		            process.exit(1);
 		        } else {
 		            console.log('success stdout was:' + stdout);
+		            process.exit(0);
 		        }
 		    }
 		);
