@@ -1,6 +1,6 @@
 # Aquascraper
 
-Aquascraper scrapes the results of the closed auctions from aquabid.com. It then sends that data to Firebase to be rendered. I wrote about the process of making this [on medium](https://medium.com/@Tnodes/all-i-wanted-to-do-is-scrape-in-javascript-c329c8e757e3)
+Aquascraper scrapes the results of the closed auctions from aquabid.com. It then sends that data to Firebase to be rendered. The visualized data can be viewed at [taylornodell.com](taylornodell.com/aquadisplay). The visualized data repo is [nodes777/aquadisplay](https://github.com/nodes777/aquadisplay). I wrote about the process of making this [on medium](https://medium.com/@Tnodes/all-i-wanted-to-do-is-scrape-in-javascript-c329c8e757e3).
 
 ## Installation
 Requires:
@@ -50,7 +50,7 @@ Returns a JSON object of all fish type's market stats; average, standard deviati
 
 ## Bugs
 
-* Currently the data being displayed for the closed auctions aquabid, after selecting "view 1 previous day", includes sales that have been sold before their close date. This allows a single sale to remain as a valid data point for multiple days. If serious data analysis is to be done, this must be sorted to only display the data on the day that the sale is made.
+* ~~Currently the data being displayed for the closed auctions aquabid, after selecting "view 1 previous day", includes sales that have been sold before their close date. This allows a single sale to remain as a valid data point for multiple days. If serious data analysis is to be done, this must be sorted to only display the data on the day that the sale is made.~~ This was fixed on February 22nd 2018. All previous scrapes have sales from dates around that specific day so they have higher sales volumes. The current set up only scrapes sales if that sale was made on the day of the scrape. This is more accurate to the "sales that were made today".
 
 ## To Dos
 * Add links to fish closed auction pages
