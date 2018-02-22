@@ -1,18 +1,31 @@
 var require = patchRequire(require);
 
 exports.format = function(tableDataArray){
-   var entries = [];
+    var entries = [];
+    // dateArray is defined in scrape.js
+    var year = dateArray.slice(3,4);
+    var todayDate = new Date();
+    var todaysMilleSecs = todayDate.setHours(0,0,0,0);
 
-   format(tableDataArray);
+    format(tableDataArray);
 
 	function format(tableDataArray){
-		    // skip "Close\nItem\nSeller\nHigh Bidder\nBid Price\nReserve Met?\n",
+		// skip "Close\nItem\nSeller\nHigh Bidder\nBid Price\nReserve Met?\n",
 		for(var i = 1; i<tableDataArray.length; i++){
 			//convert \n to v*^%, then split on *^%
 			var tmpArr = tableDataArray[i].replace( /\n/g, "v*^%" ).split( "v*^%" );
 			//console.log("tmpArr "+tmpArr);
-			var entry = new AuctionEntry(tmpArr[0], tmpArr[1], tmpArr[2], tmpArr[3], tmpArr[4], tmpArr[5]);
-			entries.push(entry);
+
+            // Check if the date displayed is today
+            var aDateStr = tmpArr[0]+"/"+year;
+            var aDateMilleSecs = new Date(aDateStr).setHours(0,0,0,0);
+
+            var isToday = aDateMilleSecs == todaysMilleSecs;
+			
+            if (isToday){
+                var entry = new AuctionEntry(tmpArr[0], tmpArr[1], tmpArr[2], tmpArr[3], tmpArr[4], tmpArr[5]);
+                entries.push(entry);
+            }
 		}
 	}
 
