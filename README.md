@@ -1,6 +1,6 @@
 # Aquascraper
 
-Aquascraper scrapes the results of the closed auctions from aquabid.com. It then sends that data to Firebase to be rendered. The visualized data can be viewed at [taylornodell.com](taylornodell.com/aquadisplay). The visualized data repo is [nodes777/aquadisplay](https://github.com/nodes777/aquadisplay). I wrote about the process of making this [on medium](https://medium.com/@Tnodes/all-i-wanted-to-do-is-scrape-in-javascript-c329c8e757e3).
+Aquascraper scrapes the results of the closed auctions from aquabid.com. It then sends that data to Firebase to be rendered. The visualized data can be viewed at [taylornodell.com](http://taylornodell.com/aquadisplay/). The visualized data repo is [nodes777/aquadisplay](https://github.com/nodes777/aquadisplay). I wrote about the process of making this [on medium](https://medium.com/@Tnodes/all-i-wanted-to-do-is-scrape-in-javascript-c329c8e757e3).
 
 ## Installation
 Requires:
